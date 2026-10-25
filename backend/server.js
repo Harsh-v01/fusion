@@ -1,14 +1,24 @@
-
 require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+const authController = require("./controllers/authController");
+const productController = require("./controllers/productController");
+const orderController = require("./controllers/orderController");
+const inventoryController = require("./controllers/inventoryController");
+const authMiddleware = require("./middleware/authMiddleware");
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/products", require("./routes/productRoutes"));
+app.use("/api/inventory", require("./routes/inventoryRoutes"));
+app.use("/api/orders", require("./routes/orderRoutes"));
 
 async function startServer() {
   try {
